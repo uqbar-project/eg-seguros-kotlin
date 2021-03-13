@@ -26,7 +26,8 @@ class CobroSiniestroSpec : DescribeSpec({
                 flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_MUCHOS_AUTOS + 1)
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe false
             }
-            it("si no tiene mucha deuda puede cobrar siniestro") {
+            it("si no tiene poca deuda puede cobrar siniestro") {
+                flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_MUCHOS_AUTOS)
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe true
             }
         }
@@ -37,7 +38,8 @@ class CobroSiniestroSpec : DescribeSpec({
                 flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_POCOS_AUTOS + 1)
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe false
             }
-            it("si no tiene mucha deuda puede cobrar siniestro") {
+            it("si no tiene poca deuda puede cobrar siniestro") {
+                flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_POCOS_AUTOS)
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe true
             }
         }
