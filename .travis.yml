@@ -2,7 +2,6 @@ language: java
 jdk:
   - openjdk14
 before_install:
-  - ls
   - chmod +x gradlew
   - chmod +x gradle/wrapper/gradle-wrapper.jar
 script:
