@@ -15,6 +15,7 @@ open class Cliente {
         this.deuda = this.deuda + monto
     }
 
+    fun nadaDeNada() {}
 }
 
 public val MAXIMO_FLOTA_MUCHOS_AUTOS = 10000
