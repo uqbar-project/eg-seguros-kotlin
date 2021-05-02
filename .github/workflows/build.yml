@@ -14,7 +14,6 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 14
-      - run: bash <(curl -s https://codecov.io/bash)
 
       # Execute Gradle commands in GitHub Actions workflows
       # => https://github.com/marketplace/actions/gradle-command
@@ -24,3 +23,6 @@ jobs:
           wrapper-cache-enabled: true
           dependencies-cache-enabled: true
           configuration-cache-enabled: true
+
+      # Send JaCoCo reports to codecov
+      - run: bash <(curl -s https://codecov.io/bash)
