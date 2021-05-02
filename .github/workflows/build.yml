@@ -1,7 +1,7 @@
-# .github/workflows/runOnGitHub.yml
+# .github/workflows/build.yml
 # GitHub Actions documentation
 # => https://docs.github.com/en/actions
-name: runOnGitHub
+name: build
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -14,6 +14,7 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 14
+      - run: bash <(curl -s https://codecov.io/bash)
 
       # Execute Gradle commands in GitHub Actions workflows
       # => https://github.com/marketplace/actions/gradle-command
