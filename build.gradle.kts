@@ -1,18 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.31"
+    kotlin("jvm") version "1.6.10"
     jacoco
 }
 
-group = "ar.edu.algo2"
+group = "ar.edu.unsam.algo2"
 version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
-val kotestVersion = "4.4.3"
+val kotestVersion = "5.1.0"
 
 dependencies {
     implementation(kotlin("stdlib"))
@@ -33,15 +33,15 @@ tasks.withType<Test> {
 }
 
 tasks.test {
-    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.jacocoTestReport {
-    dependsOn(tasks.test) // tests are required to run before generating the report
+    dependsOn(tasks.test)
 }
 
 jacoco {
-    toolVersion = "0.8.6"
+    toolVersion = "0.8.7"
 }
 
 tasks.jacocoTestReport {

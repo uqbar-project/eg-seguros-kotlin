@@ -1,4 +1,4 @@
-package algo2.seguros
+package ar.edu.unsam.algo2.seguros
 
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.DescribeSpec
