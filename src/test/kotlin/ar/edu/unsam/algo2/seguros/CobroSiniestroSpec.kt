@@ -4,6 +4,9 @@ import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 
+// En los tests prescindimos de utilizar las mismas constantes que en cliente
+// para que si esos valores cambian los test se rompan (esta hecho por diseño).
+//
 // https://kotest.io/
 class CobroSiniestroSpec : DescribeSpec({
     isolationMode = IsolationMode.InstancePerTest
@@ -20,28 +23,37 @@ class CobroSiniestroSpec : DescribeSpec({
             }
         }
         describe("Dada una flota con muchos autos") {
-            val flotaConMuchosAutos = Flota()
-            flotaConMuchosAutos.autos = LIMITE_MUCHOS_AUTOS + 1
+            // Arrange
+            val flotaConMuchosAutos = crearFlota(6)
             it("si tiene mucha deuda no puede cobrar siniestro") {
-                flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_MUCHOS_AUTOS + 1)
+                // Act
+                flotaConMuchosAutos.generarDeuda(10001)
+                // Assert
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe false
             }
             it("si no tiene poca deuda puede cobrar siniestro") {
-                flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_MUCHOS_AUTOS)
+                // Act
+                flotaConMuchosAutos.generarDeuda(10000)
+                // Assert
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe true
             }
         }
         describe("Dada una flota con pocos autos") {
             val flotaConMuchosAutos = Flota()
-            flotaConMuchosAutos.autos = LIMITE_MUCHOS_AUTOS
+            flotaConMuchosAutos.autos = 5
             it("si tiene mucha deuda no puede cobrar siniestro") {
-                flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_POCOS_AUTOS + 1)
+                flotaConMuchosAutos.generarDeuda(5001)
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe false
             }
             it("si no tiene poca deuda puede cobrar siniestro") {
-                flotaConMuchosAutos.generarDeuda(MAXIMO_FLOTA_POCOS_AUTOS)
+                flotaConMuchosAutos.generarDeuda(5000)
                 flotaConMuchosAutos.puedeCobrarSiniestro() shouldBe true
             }
         }
     }
 })
+
+fun crearFlota(cantidadAutos: Int) =
+    Flota().apply {
+        autos = cantidadAutos
+    }
