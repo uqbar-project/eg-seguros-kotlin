@@ -3,6 +3,7 @@ package ar.edu.unsam.algo2.seguros
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import java.time.LocalDate
 
 // En los tests prescindimos de utilizar las mismas constantes que en cliente
 // para que si esos valores cambian los test se rompan (esta hecho por diseño).
@@ -13,13 +14,15 @@ class CobroSiniestroSpec : DescribeSpec({
 
     describe("Tests Cobro Siniestro") {
         describe("Dado un cliente normal") {
-            val cliente = Cliente()
-            it("si no es moroso puede cobrar siniestro") {
+            val cliente = ClienteNormal()
+            it("si no es moroso puede cobrar siniestro y no debe registrar la consulta del libre deuda") {
                 cliente.puedeCobrarSiniestro() shouldBe true
+                cliente.tieneConsultas(LocalDate.now()) shouldBe false
             }
-            it("si tiene deuda no puede cobrar siniestro") {
+            it("si tiene deuda no puede cobrar siniestro y debe registrar la consulta del libre deuda") {
                 cliente.generarDeuda(10)
                 cliente.puedeCobrarSiniestro() shouldBe false
+                cliente.tieneConsultas(LocalDate.now()) shouldBe true
             }
         }
         describe("Dada una flota con muchos autos") {

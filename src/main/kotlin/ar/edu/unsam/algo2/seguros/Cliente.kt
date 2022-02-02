@@ -1,9 +1,11 @@
 package ar.edu.unsam.algo2.seguros
 
-open class Cliente {
+import java.time.LocalDate
+
+abstract class Cliente {
     protected var deuda: Int = 0
 
-    open fun puedeCobrarSiniestro() = !esMoroso()
+    abstract fun puedeCobrarSiniestro(): Boolean
 
     fun esMoroso() = deuda > 0
 
@@ -25,4 +27,21 @@ class Flota : Cliente() {
     fun maximoPermitido() =
         if (autos <= LIMITE_MUCHOS_AUTOS) MAXIMO_FLOTA_POCOS_AUTOS else MAXIMO_FLOTA_MUCHOS_AUTOS
 
+}
+
+class ClienteNormal : Cliente() {
+    var diasDeConsulta: MutableList<LocalDate> = mutableListOf()
+
+    fun registrarConsulta() {
+        if (this.esMoroso() && !tieneConsultas(LocalDate.now())) {
+            diasDeConsulta.add(LocalDate.now())
+        }
+    }
+
+    fun tieneConsultas(dia: LocalDate) = diasDeConsulta.any { it == dia }
+
+    override fun puedeCobrarSiniestro(): Boolean {
+        registrarConsulta()
+        return !esMoroso()
+    }
 }
