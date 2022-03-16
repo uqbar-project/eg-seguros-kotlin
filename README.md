@@ -239,7 +239,7 @@ Lo que pudimos hacer hasta el momento es aislar la primera funcionalidad, y comp
 
 ### Comentar código para ver si fallan los tests
 
-Un ejemplo interesante podría ser comentar la decisión del método `registrarConsulta` y hacer que **siempre se registre cada consulta**, incluso cuando el cliente normal no es moroso:
+Un ejemplo interesante podría ser comentar la decisión del método `registrarConsulta` y hacer que **siempre se registre cada consulta**, incluso cuando el cliente normal no es moroso. Otra opción es comentar el registro de la consulta, de manera que aun cuando sea moroso, no quede registro:
 
 ![comment tests to detect bad code](images/09_commenting_code_force_fail.gif)
 
