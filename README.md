@@ -126,7 +126,7 @@ Ya estamos mejor, uno de los test pasa satisfactoriamente.
 
 ### Debugging
 
-El segundo test se rompe, vamos a utilizar el **Debugger** de IntelliJ que es una herramienta muy útil cuando la aprendemos a manejar. Hay varias cosas para contar
+El segundo test se rompe, vamos a utilizar el **Debugger** de IntelliJ que es una herramienta muy útil cuando la aprendemos a programar. Hay varias cosas para contar
 
 - antes de ejecutar los tests, ponemos un **Breakpoint** haciendo un click apenas a la derecha del número de línea (o presionar `Ctrl` + `F8`)  
 - luego nos ubicamos en el test que queremos debuggear, y al hacer click sobre el ícono de play verde, seleccionamos `Debug` sobre ese test
