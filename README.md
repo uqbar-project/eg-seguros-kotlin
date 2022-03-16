@@ -132,7 +132,7 @@ El segundo test se rompe, vamos a utilizar el **Debugger** de IntelliJ que es un
 - luego nos ubicamos en el test que queremos debuggear, y al hacer click sobre el ícono de play verde, seleccionamos `Debug` sobre ese test
 - se inicia el debugger que se detiene en la línea que marcamos como breakpoint.
   - a partir de aquí podemos avanzar línea por línea en profundidad mediante `F7` (Step into), lo que es conveniente cuando queremos explorar lo que ocurre cuando enviamos un mensaje.
-  - cuando no nos interesa ver lo que va a ocurrir al enviar un mensaje, podemos utilizar el shortcut `F8` (Step over) que simplemente resuelve el envío del mensaje y vuelve el control en la siguiente línea del método que estamos debuggeando
+  - cuando no nos interesa ver lo que va a ocurrir al enviar un mensaje, podemos utilizar el shortcut `F8` (Step over) que simplemente resuelve el envío del mensaje y vuelve el control a la siguiente línea del método que estamos debuggeando
   - pueden explorar otras opciones, como Step Out (`Shift` + `F8`) que termina de ejecutar el método donde estamos y sale hacia afuera
 - en este caso navegamos en profundidad y podemos hacer click sobre el botón `+` sobre las variables para evaluar expresiones dentro de un método, lo que nos es útil para ver el valor que tiene
 - y también podemos poner un breakpoint sobre una expresión lambda, **que es la que finalmente nos permite determinar que el problema está en la comparación**
@@ -153,7 +153,7 @@ fun tieneConsultas(dia: LocalDate) =  diasDeConsulta.any { it == dia }
 
 y ahora sí tenemos los dos tests ok.
 
-### Contras del debugging
+### Consecuencias del debugging
 
 Debuggear es una herramienta útil para encontrar y solucionar un error:
 
