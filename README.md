@@ -36,58 +36,59 @@ class CobroSiniestroSpec : DescribeSpec({
     isolationMode = IsolationMode.InstancePerTest
 
     describe("Tests Cobro Siniestro") {
-        describe("Dado un cliente normal") {
-            val cliente = ClienteNormal()
-            it("si no es moroso puede cobrar siniestro y no debe registrar la consulta del libre deuda") {
-                cliente.puedeCobrarSiniestro() shouldBe true
-                cliente.tieneConsultas(LocalDate.now()) shouldBe false
-            }
-            it("si tiene deuda no puede cobrar siniestro y debe registrar la consulta del libre deuda") {
-                cliente.generarDeuda(10)
-                cliente.puedeCobrarSiniestro() shouldBe false
-                cliente.tieneConsultas(LocalDate.now()) shouldBe true
-            }
+      describe("Dado un cliente normal") {
+        it("si no es moroso puede cobrar siniestro y no debe registrar la consulta del libre deuda") {
+          // Arrange
+          val clienteNoMoroso = ClienteNormal()
+          // Assert
+          clienteNoMoroso.puedeCobrarSiniestro() shouldBe true
+          clienteNoMoroso.tieneConsultas(LocalDate.now()) shouldBe false
         }
+        it("si tiene deuda no puede cobrar siniestro y debe registrar la consulta del libre deuda") {
+          // Arrange
+          val clienteMoroso = ClienteNormal()
+          // Act
+          clienteMoroso.facturar(10)
+          // Assert
+          clienteMoroso.puedeCobrarSiniestro() shouldBe false
+          clienteMoroso.tieneConsultas(LocalDate.now()) shouldBe true
+        }
+      } 
     }
 })
-
-fun crearFlota(cantidadAutos: Int) =
-    Flota().apply {
-        autos = cantidadAutos
-    }
 ```
 
 El cliente normal se define de la siguiente manera:
 
 ```kotlin
 abstract class Cliente {
-    protected var deuda: Int = 0
+    protected var deuda = 0
 
     abstract fun puedeCobrarSiniestro(): Boolean
 
     fun esMoroso() = deuda > 0
 
-    fun generarDeuda(monto: Int) {
-        this.deuda = this.deuda + monto
+    fun facturar(monto: Int) {
+      deuda += monto
     }
 }
 
 class ClienteNormal : Cliente() {
-    var diasDeConsulta: MutableList<LocalDate> = mutableListOf()
+  private val diasDeConsulta = mutableListOf<LocalDate>()
 
-    fun registrarConsulta() {
-        val ultimaConsulta = diasDeConsulta.last()
-        if (this.esMoroso() && ultimaConsulta === LocalDate.now() ) {
-            diasDeConsulta.add(LocalDate.now())
-        }
+  fun registrarConsulta() {
+    val ultimaConsulta = diasDeConsulta.last()
+    if (esMoroso() && ultimaConsulta === LocalDate.now() ) {
+        diasDeConsulta.add(LocalDate.now())
     }
+  }
 
-    fun tieneConsultas(dia: LocalDate) =  diasDeConsulta.any { it === dia }
+  fun tieneConsultas(dia: LocalDate) = diasDeConsulta.any { it === dia }
 
-    override fun puedeCobrarSiniestro(): Boolean {
-        registrarConsulta()
-        return !esMoroso()
-    }
+  override fun puedeCobrarSiniestro(): Boolean {
+    registrarConsulta()
+    return !esMoroso()
+  }
 }
 ```
 

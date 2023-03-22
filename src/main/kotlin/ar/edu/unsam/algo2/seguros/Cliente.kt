@@ -3,14 +3,14 @@ package ar.edu.unsam.algo2.seguros
 import java.time.LocalDate
 
 abstract class Cliente {
-    protected var deuda: Int = 0
+    protected var deuda = 0
 
     abstract fun puedeCobrarSiniestro(): Boolean
 
     fun esMoroso() = deuda > 0
 
     fun facturar(monto: Int) {
-        this.deuda = this.deuda + monto
+        deuda += monto
     }
 }
 
@@ -21,7 +21,7 @@ val LIMITE_MUCHOS_AUTOS = 5
 class Flota(var autos: Int) : Cliente() {
 
     override fun puedeCobrarSiniestro() =
-        this.deuda <= maximoPermitido()
+        deuda <= maximoPermitido()
 
     fun maximoPermitido() =
         if (autos <= LIMITE_MUCHOS_AUTOS) MAXIMO_FLOTA_POCOS_AUTOS else MAXIMO_FLOTA_MUCHOS_AUTOS
@@ -29,10 +29,10 @@ class Flota(var autos: Int) : Cliente() {
 }
 
 class ClienteNormal : Cliente() {
-    var diasDeConsulta: MutableList<LocalDate> = mutableListOf()
+    private val diasDeConsulta = mutableListOf<LocalDate>()
 
     fun registrarConsulta() {
-        if (this.esMoroso() && !tieneConsultas(LocalDate.now())) {
+        if (esMoroso() && !tieneConsultas(LocalDate.now())) {
             diasDeConsulta.add(LocalDate.now())
         }
     }
