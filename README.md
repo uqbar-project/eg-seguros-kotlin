@@ -62,15 +62,15 @@ El cliente normal se define de la siguiente manera:
 
 ```kotlin
 abstract class Cliente {
-    protected var deuda = 0
+  protected var deuda = 0
 
-    abstract fun puedeCobrarSiniestro(): Boolean
+  abstract fun puedeCobrarSiniestro(): Boolean
 
-    fun esMoroso() = deuda > 0
+  fun esMoroso() = deuda > 0
 
-    fun facturar(monto: Int) {
-      deuda += monto
-    }
+  fun facturar(monto: Int) {
+    deuda += monto
+  }
 }
 
 class ClienteNormal : Cliente() {
@@ -129,11 +129,11 @@ Ya estamos mejor, uno de los test pasa satisfactoriamente.
 
 El segundo test se rompe, vamos a utilizar el **Debugger** de IntelliJ que es una herramienta muy útil cuando la aprendemos a manejar. Hay varias cosas para contar
 
-- antes de ejecutar los tests, ponemos un **Breakpoint** haciendo un click apenas a la derecha del número de línea (o presionar `Ctrl` + `F8`)  
+- antes de ejecutar los tests, ponemos un **Breakpoint** haciendo click apenas a la derecha del número de línea (o presionando `Ctrl` + `F8`)  
 - luego nos ubicamos en el test que queremos debuggear, y al hacer click sobre el ícono de play verde, seleccionamos `Debug` sobre ese test
 - se inicia el debugger que se detiene en la línea que marcamos como breakpoint.
   - a partir de aquí podemos avanzar línea por línea en profundidad mediante `F7` (Step into), lo que es conveniente cuando queremos explorar lo que ocurre cuando enviamos un mensaje.
-  - cuando no nos interesa ver lo que va a ocurrir al enviar un mensaje, podemos utilizar el shortcut `F8` (Step over) que simplemente resuelve el envío del mensaje y vuelve el control a la siguiente línea del método que estamos debuggeando
+  - cuando no nos interesa ver lo que va a ocurrir al enviar un mensaje, podemos utilizar el shortcut `F8` (Step over) que obtiene el resultado del mensaje y vuelve el control a la siguiente línea del método que estamos debuggeando
   - pueden explorar otras opciones, como Step Out (`Shift` + `F8`) que termina de ejecutar el método donde estamos y sale hacia afuera
 - en este caso navegamos en profundidad y podemos hacer click sobre el botón `+` sobre las variables para evaluar expresiones dentro de un método, lo que nos es útil para ver el valor que tiene
 - y también podemos poner un breakpoint sobre una expresión lambda, **que es la que finalmente nos permite determinar que el problema está en la comparación**
@@ -146,13 +146,15 @@ Efectivamente el problema está en que las fechas que estamos comparando son el 
 fun tieneConsultas(dia: LocalDate) =  diasDeConsulta.any { it === dia }
 ```
 
+Hasta aquí dos referencias son iguales si apuntan al mismo objeto. Pueden representar la misma fecha pero ser dos instancias diferentes, como en el caso del test: por lo tanto `it === dia` resulta falso.
+
 Si en lugar de eso comparamos igualdad estructural con `==`:
 
 ```kotlin
 fun tieneConsultas(dia: LocalDate) =  diasDeConsulta.any { it == dia }
 ```
 
-y ahora sí tenemos los dos tests ok.
+Dos referencias son iguales si representan **la misma fecha**. Y ahora sí tenemos los dos tests ok.
 
 ### Consecuencias del debugging
 
@@ -216,7 +218,7 @@ Otro de los usos conocidos del print por consola es dejar rastros (como las migu
 - no podemos detener la ejecución para poder ver todo el contexto, solo lo que mandamos a imprimir
 - requiere un trabajo de asociación de leer código de diferentes clases e interpretar el output de la consola al mismo tiempo
 
-No obstante, para materias más avanzadas o bien cuando es necesario hacer un test de integración mucho más complejo de automatizar, imprimir por consola es una técnica que sigue siendo necesaria conforme aumenta la complejidad de las aplicaciones que construimos.
+No obstante, para materias más avanzadas donde por ejemplo construimos un test de integración, imprimir por consola es una técnica que sigue siendo necesaria conforme aumenta la complejidad de las aplicaciones que desarrollamos.
 
 ## Comentar código que falla
 
@@ -240,7 +242,7 @@ Lo que pudimos hacer hasta el momento es aislar la primera funcionalidad, y comp
 
 ### Comentar código para ver si fallan los tests
 
-Un ejemplo interesante podría ser comentar la decisión del método `registrarConsulta` y hacer que **siempre se registre cada consulta**, incluso cuando el cliente normal no es moroso. Otra opción es comentar el registro de la consulta, de manera que aun cuando sea moroso, no quede registro:
+Otro caso interesante podría ser comentar la decisión del método `registrarConsulta` y hacer que **siempre se registre cada consulta**, incluso cuando el cliente normal no es moroso. Otra opción es comentar el registro de la consulta, de manera que aun cuando sea moroso, no quede registro:
 
 ![comment tests to detect bad code](images/09_commenting_code_force_fail.gif)
 
@@ -256,4 +258,4 @@ Hemos visto en este ejemplo varias técnicas para corregir errores:
 - imprimir por consola en determinados puntos del código
 - comentar código para ver los efectos que produce (e incluso para detectar fallas en los tests)
 
-No hay una técnica sola que sea mejor que otras, de hecho todas se complementan para ayudarnos a corregir las cosas cuando salen mal, que es parte del flujo normal de todas las personas.
+No hay una técnica sola que sea mejor que otras, de hecho todas se complementan para ayudarnos a corregir las cosas cuando salen mal, que es parte del día a día de cualquier persona que trabaja en desarrollo.
