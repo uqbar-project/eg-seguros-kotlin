@@ -19,7 +19,7 @@ class CobroSiniestroSpec : DescribeSpec({
                 val clienteNoMoroso = ClienteNormal()
                 // Assert
                 clienteNoMoroso.puedeCobrarSiniestro() shouldBe true
-                clienteNoMoroso.tieneConsultas(LocalDate.now()) shouldBe true
+                clienteNoMoroso.tieneConsultas(LocalDate.now()) shouldBe false
             }
             it("si tiene deuda no puede cobrar siniestro y debe registrar la consulta del libre deuda") {
                 // Arrange
