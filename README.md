@@ -130,17 +130,27 @@ Ya estamos mejor, uno de los test pasa satisfactoriamente.
 El segundo test se rompe, vamos a utilizar el **Debugger** de IntelliJ que es una herramienta muy útil cuando la aprendemos a manejar. Hay varias cosas para contar
 
 - antes de ejecutar los tests, ponemos un **Breakpoint** haciendo click apenas a la derecha del número de línea (o presionando `Ctrl` + `F8`)  
+
+![breakpoint](./images/04-debugging-01-breakpoint.gif)
+
 - luego nos ubicamos en el test que queremos debuggear, y al hacer click sobre el ícono de play verde, seleccionamos `Debug` sobre ese test
+
+![debugging test](./images/04-debugging-02-debug-spec.gif)
+
 - se inicia el debugger que se detiene en la línea que marcamos como breakpoint.
   - a partir de aquí podemos avanzar línea por línea en profundidad mediante `F7` (Step into), lo que es conveniente cuando queremos explorar lo que ocurre cuando enviamos un mensaje.
   - cuando no nos interesa ver lo que va a ocurrir al enviar un mensaje, podemos utilizar el shortcut `F8` (Step over) que obtiene el resultado del mensaje y vuelve el control a la siguiente línea del método que estamos debuggeando
   - pueden explorar otras opciones, como Step Out (`Shift` + `F8`) que termina de ejecutar el método donde estamos y sale hacia afuera
+
+![step into / step over](./images/04-debugging-03-step-into-vs-step-over.gif)
+
 - en este caso navegamos en profundidad y podemos hacer click sobre el botón `+` sobre las variables para evaluar expresiones dentro de un método, lo que nos es útil para ver el valor que tiene
-- y también podemos poner un breakpoint sobre una expresión lambda, **que es la que finalmente nos permite determinar que el problema está en la comparación**
 
-![debugging](images/04_debugging.gif)
+![variables / expresssions](./images/04-debugging-04-evaluating-expression.gif)
 
-Efectivamente el problema está en que las fechas que estamos comparando son el mismo día (el día de hoy) pero son dos instancias diferentes. Y las comparamos mediante el `===`:
+- y también podemos poner un breakpoint sobre una expresión lambda, **que es la que finalmente nos permite determinar que el problema está en la comparación**.
+
+Las fechas que estamos comparando son el mismo día (el día de hoy) pero son dos instancias diferentes. Y las comparamos mediante el `===`:
 
 ```kotlin
 fun tieneConsultas(dia: LocalDate) =  diasDeConsulta.any { it === dia }
