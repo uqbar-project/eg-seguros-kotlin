@@ -40,7 +40,7 @@ class CobroSiniestroSpec : DescribeSpec({
                 // Assert
                 flotaMuchaDeudaMuchosAutos.puedeCobrarSiniestro() shouldBe false
             }
-            it("si no tiene poca deuda puede cobrar siniestro") {
+            it("si tiene poca deuda puede cobrar siniestro") {
                 // Arrange
                 val flotaPocaDeudaMuchosAutos = Flota(autos = 6)
                 // Act
@@ -58,7 +58,7 @@ class CobroSiniestroSpec : DescribeSpec({
                 // Assert
                 flotaMuchaDeudaPocosAutos.puedeCobrarSiniestro() shouldBe false
             }
-            it("si no tiene poca deuda puede cobrar siniestro") {
+            it("si tiene poca deuda puede cobrar siniestro") {
                 // Arrange
                 val flotaPocaDeudaPocosAutos = Flota(autos = 5)
                 // Act
