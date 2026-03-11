@@ -78,7 +78,7 @@ class ClienteNormal : Cliente() {
 
   fun registrarConsulta() {
     val ultimaConsulta = diasDeConsulta.last()
-    if (esMoroso() && ultimaConsulta === LocalDate.now() ) {
+    if (esMoroso() && ultimaConsulta !== LocalDate.now() ) {
         diasDeConsulta.add(LocalDate.now())
     }
   }
