@@ -211,7 +211,7 @@ fun registrarConsulta() {
     println("consultas: ${diasDeConsulta}")
     val ultimaConsulta = diasDeConsulta.last()
     println("tiene consultas? ${ultimaConsulta}")
-    if (this.esMoroso() && ultimaConsulta === LocalDate.now() ) {
+    if (this.esMoroso() && ultimaConsulta !== LocalDate.now() ) {
         diasDeConsulta.add(LocalDate.now())
     }
 }
