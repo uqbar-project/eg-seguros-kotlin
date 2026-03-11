@@ -264,4 +264,4 @@ Hemos visto en este ejemplo varias técnicas para corregir errores:
 - imprimir por consola en determinados puntos del código
 - comentar código para ver los efectos que produce (e incluso para detectar fallas en los tests)
 
-No hay una técnica sola que sea mejor que otras, de hecho todas se complementan para ayudarnos a corregir las cosas cuando salen mal, que es parte del día a día de cualquier persona que trabaja en desarrollo.
+No hay una técnica sola que sea mejor que otras, de hecho todas se complementan para ayudarnos a corregir las cosas cuando salen mal, que es (o era) parte del día a día de cualquier persona que trabaja en desarrollo.
