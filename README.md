@@ -23,13 +23,9 @@ Un sistema de seguros de automotor define cuándo pagar un siniestro, las condic
 
 Queremos entender diferentes metodologías para corregir errores.
 
-## To TDD or not to TDD
+## Primeros errores
 
-Si resolvemos el ejercicio mediante la técnica del TDD (Test Driven Development), la primera ventaja que tenemos es que los tests no solo guían nuestra metodología de trabajo, sino que permiten detectar los errores lo más tempranamente posible. Más allá de que usemos TDD a rajatabla o utilicemos un esquema mixto donde alternemos código de negocio / tests, **los tests son nuestra mejor herramienta para detectar errores y garantizar que fueron resueltos**.
-
-## Primeros tests, primeros errores
-
-Escribimos nuestra primera clase de test, concentrándonos en el escenario de los clientes normales.
+Resolviendo el escenario de los clientes normales, escribimos estos tests.
 
 ```kotlin
 class CobroSiniestroSpec : DescribeSpec({
